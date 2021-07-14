@@ -74,7 +74,7 @@ int no = Integer.parseInt(request.getParameter("no"));
 				<!-- //content-head -->
 
 				<div id="guestbook">
-					<form action="/mysite/guest?action=delete" method="post">
+					<form action="/mysite/guest" method="post">
 						<table id="guestDelete">
 							<colgroup>
 								<col style="width: 10%;">
@@ -89,7 +89,8 @@ int no = Integer.parseInt(request.getParameter("no"));
 								<td><a href="/mysite/guest?action=list">[메인으로 돌아가기]</a></td>
 							</tr>
 						</table>
-						<input type='hidden' name="no" value="<%=no%>"> <input type='hidden' name="" value="">
+						<input type='hidden' name="no" value="<%=no%>">
+						<input type='hidden' name="action" value="delete">
 					</form>
 
 				</div>

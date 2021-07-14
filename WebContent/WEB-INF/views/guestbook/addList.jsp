@@ -77,7 +77,7 @@ List<GuestbookVo> guestbookList = (List<GuestbookVo>) request.getAttribute("gLis
 				<!-- //content-head -->
 
 				<div id="guestbook">
-					<form action="" method="">
+					<form action="/mysite/guest" method="post">
 						<table id="guestAdd">
 							<colgroup>
 								<col style="width: 70px;">
