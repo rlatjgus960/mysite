@@ -19,7 +19,7 @@
 
 			<!-- 
 			<ul>
-				<li>황일영 님 안녕하세요^^</li>
+				<li>김서현 님 안녕하세요^^</li>
 				<li><a href="" class="btn_s">로그아웃</a></li>
 				<li><a href="" class="btn_s">회원정보수정</a></li>
 			</ul>
@@ -76,7 +76,7 @@
 		<!-- //container -->
 
 
-		<div id="footer">Copyright ⓒ 2020 황일영. All right reserved</div>
+		<div id="footer">Copyright ⓒ 2021 김서현. All right reserved</div>
 		<!-- //footer -->
 
 	</div>
