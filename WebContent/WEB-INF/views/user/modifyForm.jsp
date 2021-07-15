@@ -2,10 +2,9 @@
 
 <%@ page import="com.javaex.vo.UserVo"%>
 <%
-	UserVo authUser = (UserVo) session.getAttribute("authUser");
+	UserVo authUser = (UserVo)session.getAttribute("authUser");
 	System.out.println(authUser);
 	
-	String gender = request.getParameter("gender");
 %>
 
 <!DOCTYPE html>
@@ -74,18 +73,18 @@
 							<!-- //나이 -->
 							<div class="form-group">
 							
-							<% if("female".equals(gender)) {  %>
+							<% if("female".equals(authUser.getGender())) {  %>
 								<span class="form-text">성별</span> <label for="rdo-male">남</label> <input type="radio"
 									id="rdo-male" name="gender" value="male"> <label for="rdo-female">여</label> <input
 									type="radio" id="rdo-female" name="gender" value="female" checked="checked">
 									
-									<% }else { %>
+							<% }else { %>
 									
 								<span class="form-text">성별</span> <label for="rdo-male">남</label> <input type="radio"
 									id="rdo-male" name="gender" value="male" checked="checked"> <label for="rdo-female">여</label> <input
 									type="radio" id="rdo-female" name="gender" value="female">
 									
-									<%} %>
+							<%} %>
 
 							</div>
 							<input type="hidden" name="no" value="<%=authUser.getNo()%>">
