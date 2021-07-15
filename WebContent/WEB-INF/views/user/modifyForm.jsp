@@ -4,6 +4,8 @@
 <%
 	UserVo authUser = (UserVo) session.getAttribute("authUser");
 	System.out.println(authUser);
+	
+	String gender = request.getParameter("gender");
 %>
 
 <!DOCTYPE html>
@@ -60,20 +62,30 @@
 							<!-- 비밀번호 -->
 							<div class="form-group">
 								<label class="form-text" for="input-pass">패스워드</label> <input type="text" id="input-pass"
-									name="password" value="" placeholder="비밀번호를 입력하세요">
+									name="password" value="<%=authUser.getPw() %>" placeholder="비밀번호를 입력하세요">
 							</div>
 
 							<!-- 이메일 -->
 							<div class="form-group">
 								<label class="form-text" for="input-name">이름</label> <input type="text" id="input-name"
-									name="name" value="" placeholder="이름을 입력하세요">
+									name="name" value="<%=authUser.getName() %>" placeholder="이름을 입력하세요">
 							</div>
 
 							<!-- //나이 -->
 							<div class="form-group">
+							
+							<% if("female".equals(gender)) {  %>
 								<span class="form-text">성별</span> <label for="rdo-male">남</label> <input type="radio"
 									id="rdo-male" name="gender" value="male"> <label for="rdo-female">여</label> <input
+									type="radio" id="rdo-female" name="gender" value="female" checked="checked">
+									
+									<% }else { %>
+									
+								<span class="form-text">성별</span> <label for="rdo-male">남</label> <input type="radio"
+									id="rdo-male" name="gender" value="male" checked="checked"> <label for="rdo-female">여</label> <input
 									type="radio" id="rdo-female" name="gender" value="female">
+									
+									<%} %>
 
 							</div>
 							<input type="hidden" name="no" value="<%=authUser.getNo()%>">

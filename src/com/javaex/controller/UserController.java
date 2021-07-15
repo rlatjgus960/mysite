@@ -102,25 +102,36 @@ public class UserController extends HttpServlet {
 			WebUtil.redirect(request, response, "/mysite/main");
 		}else if("modifyForm".equals(action)) {
 			System.out.println("[UserController.modifyForm]");
-						
+			
+			/*
+			HttpSession session = request.getSession();
+			UserVo authUser = (UserVo)session.getAttribute("authUser");
+			int no = authUser.getNo();
+			
+			UserDao userDao = new UserDao();
+			UserVo userVo = userDao.getUser(no);
+			
+			request.setAttribute("uVo", userVo);
+			*/
+			
 			WebUtil.forward(request, response, "/WEB-INF/views/user/modifyForm.jsp");
 		}else if("modify".equals(action)) {
 			System.out.println("[UserController.modify]");
 			
-			int no = Integer.parseInt(request.getParameter("no"));
-			String id = request.getParameter("id");
+			
+			HttpSession session = request.getSession();
+			int no = ((UserVo)session.getAttribute("authUser")).getNo();
 			String password = request.getParameter("password");
 			String name = request.getParameter("name");
 			String gender = request.getParameter("gender");
 			
-			
-			UserVo userVo = new UserVo(no, id, password, name, gender);
+			UserVo userVo = new UserVo(no,password, name, gender);
 			
 			UserDao userDao = new UserDao();
 			userDao.modifyUser(userVo);
 			
-			HttpSession session = request.getSession();
-			session.setAttribute("authUser", userVo);
+			((UserVo)session.getAttribute("authUser")).setName(name);
+			
 			
 			WebUtil.redirect(request, response, "/mysite/main");
 		}
