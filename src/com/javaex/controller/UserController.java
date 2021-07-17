@@ -103,16 +103,15 @@ public class UserController extends HttpServlet {
 		}else if("modifyForm".equals(action)) {
 			System.out.println("[UserController.modifyForm]");
 			
-			/*
 			HttpSession session = request.getSession();
-			UserVo authUser = (UserVo)session.getAttribute("authUser");
-			int no = authUser.getNo();
+			UserVo userVo = (UserVo)session.getAttribute("authUser");
+			int no = userVo.getNo();
 			
 			UserDao userDao = new UserDao();
-			UserVo userVo = userDao.getUser(no);
+			UserVo uVo = userDao.getUser(no);
 			
-			request.setAttribute("uVo", userVo);
-			*/
+			request.setAttribute("uVo", uVo);
+			
 			
 			WebUtil.forward(request, response, "/WEB-INF/views/user/modifyForm.jsp");
 		}else if("modify".equals(action)) {

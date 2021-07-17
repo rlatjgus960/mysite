@@ -2,8 +2,12 @@
 
 <%@ page import="com.javaex.vo.UserVo"%>
 <%
+	/*
 	UserVo authUser = (UserVo)session.getAttribute("authUser");
 	System.out.println(authUser);
+	*/
+	
+	UserVo userVo = (UserVo)request.getAttribute("uVo");
 	
 %>
 
@@ -54,26 +58,26 @@
 
 							<!-- 아이디 -->
 							<div class="form-group">
-								<label class="form-text" for="input-uid">아이디</label> <span class="text-large bold"><%=authUser.getId() %></span>
-								<input type="hidden" name=id value="<%=authUser.getId() %>">
+								<label class="form-text" for="input-uid">아이디</label> <span class="text-large bold"><%=userVo.getId() %></span>
+								<input type="hidden" name=id value="<%=userVo.getId() %>">
 							</div>
 
 							<!-- 비밀번호 -->
 							<div class="form-group">
 								<label class="form-text" for="input-pass">패스워드</label> <input type="text" id="input-pass"
-									name="password" value="<%=authUser.getPw() %>" placeholder="비밀번호를 입력하세요">
+									name="password" value="<%=userVo.getPw() %>" placeholder="비밀번호를 입력하세요">
 							</div>
 
 							<!-- 이메일 -->
 							<div class="form-group">
 								<label class="form-text" for="input-name">이름</label> <input type="text" id="input-name"
-									name="name" value="<%=authUser.getName() %>" placeholder="이름을 입력하세요">
+									name="name" value="<%=userVo.getName() %>" placeholder="이름을 입력하세요">
 							</div>
 
 							<!-- //나이 -->
 							<div class="form-group">
 							
-							<% if("female".equals(authUser.getGender())) {  %>
+							<% if("female".equals(userVo.getGender())) {  %>
 								<span class="form-text">성별</span> <label for="rdo-male">남</label> <input type="radio"
 									id="rdo-male" name="gender" value="male"> <label for="rdo-female">여</label> <input
 									type="radio" id="rdo-female" name="gender" value="female" checked="checked">
@@ -87,7 +91,7 @@
 							<%} %>
 
 							</div>
-							<input type="hidden" name="no" value="<%=authUser.getNo()%>">
+							<input type="hidden" name="no" value="<%=userVo.getNo()%>">
 							<input type="hidden" name="action" value="modify">
 
 							<!-- 버튼영역 -->

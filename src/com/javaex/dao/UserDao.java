@@ -136,8 +136,7 @@ public class UserDao {
 		
 	}
 	
-	/*
-	//유저 1명 정보 가져오기2
+		//유저 1명 정보 가져오기 - 회원정보 수정용
 	public UserVo getUser(int uNo) {
 		
 		UserVo userVo = null;
@@ -180,7 +179,7 @@ public class UserDao {
 		return userVo;
 		
 	}
-	*/
+	
 	
 	
 	
