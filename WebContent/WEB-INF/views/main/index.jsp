@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.javaex.vo.UserVo" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
 
-<%
-	UserVo authUser = (UserVo)session.getAttribute("authUser");
-	System.out.println(authUser);
-%>
 
 <!DOCTYPE html>
 <html>
@@ -19,8 +15,11 @@
 <body>
 	<div id="wrap">
 
-		<jsp:include page="/WEB-INF/views/includes/header.jsp"></jsp:include>
-
+		<!-- jsp:include page="/WEB-INF/views/includes/header.jsp" --> 
+		<!-- 이건 자바코드하고 섞어쓴것! -->
+		
+		
+		<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
 
 		<div id="container" class="clearfix">
 			<!-- aside 없음 -->
@@ -55,7 +54,7 @@
 		<!-- //container -->
 
 
-		<jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
+		<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
 
 	</div>
 	<!-- //wrap -->
