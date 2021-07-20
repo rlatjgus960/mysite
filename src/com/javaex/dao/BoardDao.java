@@ -72,6 +72,7 @@ public class BoardDao {
 			query += "         b.title, ";
 			query += "         b.hit, ";
 			query += "         to_char(b.reg_date, 'YY-MM-DD HH24:MI') regDate, ";
+			query += "         b.user_no, ";
 			query += "         u.name ";
 			query += " from board b, users u ";
 			query += " where b.user_no = u.no ";
@@ -87,9 +88,10 @@ public class BoardDao {
 				String title = rs.getString("title");
 				int hit = rs.getInt("hit");
 				String regDate = rs.getString("regDate");
+				int user_no = rs.getInt("user_no");
 				String name = rs.getString("name");
 
-				BoardVo boardVo = new BoardVo(no, title, hit, regDate, name);
+				BoardVo boardVo = new BoardVo(no, title, hit, regDate, user_no, name);
 
 				boardList.add(boardVo);
 			}
@@ -155,6 +157,43 @@ public class BoardDao {
 
 	}
 	
+	//쓰기
+
+	public int boardInsert (BoardVo boardVo) {
+		
+		
+		int count = -1;
+		
+		getConnection();
+
+		try {
+			
+			String query = "";
+			query += " insert into board ";
+			query += " values(seq_board_no.nextval, ?, ?, ?, sysdate, ?) ";
+
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, boardVo.getTitle());
+			pstmt.setString(2, boardVo.getContent());
+			pstmt.setInt(3, boardVo.getHit());
+			pstmt.setInt(4, boardVo.getUserNo());
+			
+			count = pstmt.executeUpdate();
+
+			// 4.결과처리
+			System.out.println(count+"건 수정");
+			
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		}
+		close();
+		
+		return count;
+		
+	}
+
+
+	
 	//수정
 
 	public int modify(BoardVo boardVo) {
@@ -178,6 +217,7 @@ public class BoardDao {
 			pstmt.setString(2, boardVo.getContent()); // ?(물음표) 중 2번째, 순서중요
 			pstmt.setInt(3, boardVo.getNo()); // ?(물음표) 중 3번째, 순서중요
 			
+			System.out.println(query);
 
 			count = pstmt.executeUpdate(); // 쿼리문 실행
 
@@ -192,6 +232,44 @@ public class BoardDao {
 		return count;
 		
 	}
+	
+	//삭제
+
+	public int delete(BoardVo boardVo) {
+		
+		
+		int count = -1;
+		
+		getConnection();
+
+		try {
+
+			// 3. SQL문 준비 / 바인딩 / 실행
+			String query = "";
+			query += " delete from board ";
+			query += " where user_no = ? ";
+			query += " and no = ? ";
+
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, boardVo.getUserNo());
+			pstmt.setInt(2, boardVo.getNo());
+
+			count = pstmt.executeUpdate();
+
+			// 4.결과처리
+			System.out.println(count + "건 삭제");
+
+			
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		}
+		close();
+		
+		return count;
+		
+	}
+	
+	
 
 	
 }

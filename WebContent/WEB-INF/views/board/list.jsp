@@ -62,8 +62,11 @@
 									<th>작성일</th>
 									<th>관리</th>
 								</tr>
+								
+								
 							</thead>
 							<tbody>
+							
 								<c:forEach items = "${bList}" var = "boardList"> 
 									<tr>
 										<td>${boardList.no }</td>
@@ -71,11 +74,13 @@
 										<td>${boardList.name }</td>
 										<td>${boardList.hit }</td>
 										<td>${boardList.regDate }</td>
+										
+										<c:if test="${authUser.no eq boardList.userNo}"> 
 										<td><a href="/mysite/board?action=delete&no=${boardList.no }">[삭제]</a></td>
+										</c:if>
+										
 									</tr>
 								</c:forEach>
-								
-								
 							</tbody>
 						</table>
 
@@ -98,7 +103,10 @@
 
 							<div class="clear"></div>
 						</div>
-						<a id="btn_write" href="">글쓰기</a>
+						
+						<c:if test="${not empty authUser }">
+						<a id="btn_write" href="/mysite/board?action=writeForm">글쓰기</a>
+						</c:if>
 
 					</div>
 					<!-- //list -->

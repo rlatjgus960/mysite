@@ -8,10 +8,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.javaex.dao.BoardDao;
 import com.javaex.util.WebUtil;
 import com.javaex.vo.BoardVo;
+import com.javaex.vo.UserVo;
 
 @WebServlet("/board")
 public class BoardController extends HttpServlet {
@@ -22,13 +24,14 @@ public class BoardController extends HttpServlet {
 		System.out.println("컨트롤러");
 		request.setCharacterEncoding("UTF-8");
 		
+		HttpSession session = request.getSession();
+		BoardDao boardDao = new BoardDao();
 		String action = request.getParameter("action");
 		
 		if("list".equals(action)) {
 			
 			System.out.println("[리스트]");
 			
-			BoardDao boardDao = new BoardDao();
 			List<BoardVo> boardList = boardDao.getBoardList();
 			
 			request.setAttribute("bList", boardList);
@@ -36,20 +39,41 @@ public class BoardController extends HttpServlet {
 			WebUtil.forward(request, response, "/WEB-INF/views/board/list.jsp");
 			
 		}else if("writeForm".equals(action)) {
-			
 			System.out.println("[쓰기폼]");
 			
-		}else if("write".equals(action)) {
+			WebUtil.forward(request, response, "/WEB-INF/views/board/writeForm.jsp");
 			
+		}else if("write".equals(action)) {
 			System.out.println("[쓰기]");
 			
-		}else if("read".equals(action)) {
+			String title = request.getParameter("title");
+			String content = request.getParameter("content");
+			int userNo = ((UserVo)session.getAttribute("authUser")).getNo();
 			
+			BoardVo boardVo = new BoardVo(title, content, userNo);
+			boardDao.boardInsert(boardVo);
+			
+			WebUtil.redirect(request, response, "/mysite/board?action=list");
+			
+		}else if("delete".equals(action)) {
+			
+			System.out.println("[삭제]");
+			
+			int userNo = ((UserVo)session.getAttribute("authUser")).getNo();
+			int no = Integer.parseInt(request.getParameter("no"));
+			
+			BoardVo boardVo = new BoardVo(no, userNo);
+			boardDao.delete(boardVo);
+			
+			WebUtil.redirect(request, response, "/mysite/board?action=list");
+			
+			
+		}else if("read".equals(action)) {
 			System.out.println("[읽기]");
 			
 			int no = Integer.parseInt(request.getParameter("no"));
 			
-			BoardDao boardDao = new BoardDao();
+			
 			BoardVo boardVo = boardDao.getContent(no);
 			
 			request.setAttribute("boardVo", boardVo);
@@ -62,7 +86,6 @@ public class BoardController extends HttpServlet {
 			
 			int no = Integer.parseInt(request.getParameter("no"));
 			
-			BoardDao boardDao = new BoardDao();
 			BoardVo boardVo = boardDao.getContent(no);
 			
 			request.setAttribute("boardVo", boardVo);
@@ -71,14 +94,22 @@ public class BoardController extends HttpServlet {
 			
 		}else if("modify".equals(action)) {
 			
-			
-			
 			System.out.println("[수정]");
+			
+			
+			int no = Integer.parseInt(request.getParameter("no"));
+			String title = request.getParameter("title");
+			String content = request.getParameter("content");
+			
+			
+			BoardVo boardVo = new BoardVo(no, title, content);
+			
+			System.out.println(boardVo);
+			
+			boardDao.modify(boardVo);
+			
+			WebUtil.redirect(request, response, "/mysite/board?action=list");
 
-		}else if("delete".equals(action)) {
-			
-			System.out.println("[삭제]");
-			
 		}
 	
 	}
