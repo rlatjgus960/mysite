@@ -37,7 +37,11 @@ public class BoardController extends HttpServlet {
 			
 		}else if("writeForm".equals(action)) {
 			
+			System.out.println("[쓰기폼]");
+			
 		}else if("write".equals(action)) {
+			
+			System.out.println("[쓰기]");
 			
 		}else if("read".equals(action)) {
 			
@@ -54,9 +58,26 @@ public class BoardController extends HttpServlet {
 			
 		}else if("modifyForm".equals(action)) {
 			
+			System.out.println("[수정폼]");
+			
+			int no = Integer.parseInt(request.getParameter("no"));
+			
+			BoardDao boardDao = new BoardDao();
+			BoardVo boardVo = boardDao.getContent(no);
+			
+			request.setAttribute("boardVo", boardVo);
+			
+			WebUtil.forward(request, response, "/WEB-INF/views/board/modifyForm.jsp");
+			
 		}else if("modify".equals(action)) {
 			
+			
+			
+			System.out.println("[수정]");
+
 		}else if("delete".equals(action)) {
+			
+			System.out.println("[삭제]");
 			
 		}
 	
