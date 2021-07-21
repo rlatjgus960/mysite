@@ -33,14 +33,8 @@ public class BoardVo {
 		this.content = content;
 	}
 
-	public BoardVo(String title, String content, int hit, String regDate, String name) {
-		super();
-		this.title = title;
-		this.content = content;
-		this.hit = hit;
-		this.regDate = regDate;
-		this.name = name;
-	}
+	
+
 
 	public BoardVo(int no, String title, int hit, String regDate, String name) {
 		super();

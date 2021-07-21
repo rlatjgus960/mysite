@@ -69,8 +69,13 @@
 								<span class="form-value">${boardVo.content }<br>
 								</span>
 							</div>
-
-							<a id="btn_modify" href="/mysite/board?action=modifyForm&no=${param.no }">수정</a> <a id="btn_modify" href="/mysite/board?action=list">목록</a>
+							
+							<c:if test="${authUser.no eq boardVo.userNo}"> 
+								<a id="btn_modify" href="/mysite/board?action=modifyForm&no=${param.no }">수정</a> 
+							</c:if>
+							
+							
+							<a id="btn_modify" href="/mysite/board?action=list">목록</a>
 
 						</form>
 						<!-- //form -->

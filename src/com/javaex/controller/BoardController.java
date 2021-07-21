@@ -32,7 +32,15 @@ public class BoardController extends HttpServlet {
 			
 			System.out.println("[리스트]");
 			
-			List<BoardVo> boardList = boardDao.getBoardList();
+			String keyword = request.getParameter("keyword");
+			
+			List<BoardVo> boardList = null;
+			
+			if(keyword != null) {
+				boardList = boardDao.getBoardList(keyword);
+			}else {
+				boardList = boardDao.getBoardList();
+			}
 			
 			request.setAttribute("bList", boardList);
 			
@@ -40,6 +48,8 @@ public class BoardController extends HttpServlet {
 			
 		}else if("writeForm".equals(action)) {
 			System.out.println("[쓰기폼]");
+			
+			
 			
 			WebUtil.forward(request, response, "/WEB-INF/views/board/writeForm.jsp");
 			
@@ -73,6 +83,7 @@ public class BoardController extends HttpServlet {
 			
 			int no = Integer.parseInt(request.getParameter("no"));
 			
+			boardDao.updateHit(no);
 			
 			BoardVo boardVo = boardDao.getContent(no);
 			
